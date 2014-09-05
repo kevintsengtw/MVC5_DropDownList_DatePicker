@@ -1,0 +1,49 @@
+﻿@model DateTime?
+@{
+    var value = Model.HasValue
+                    ? Model.Value.ToString("yyyy-MM-dd")
+                    : "";
+
+    var addtionalValues = ViewData.ModelMetadata.AdditionalValues;
+
+    var options = ViewData.Keys
+        .Where(item => item.StartsWith("_"))
+        .ToDictionary(
+            item => item.Substring(1),
+            item => ViewData[item]);
+}
+
+@Html.TextBox("", value, new
+{
+    @class = "form-control Date-DropDownList",
+    data_TaiwanCalendarYear = options.ContainsKey("TaiwanCalendarYear")
+        ? options["TaiwanCalendarYear"].Equals(true).ToString()
+        : addtionalValues.ContainsKey("TaiwanCalendarYear")
+            ? addtionalValues["TaiwanCalendarYear"].ToString()
+            : "False",
+    data_YearStart = options.ContainsKey("YearStart")
+        ? options["YearStart"]
+        : addtionalValues.ContainsKey("YearStart")
+            ? addtionalValues["YearStart"]
+            : DateTime.Now.AddYears(-100).Year,
+    data_YearEnd = options.ContainsKey("YearEnd")
+        ? options["YearEnd"]
+        : addtionalValues.ContainsKey("YearEnd")
+            ? addtionalValues["YearEnd"]
+            : DateTime.Now.Year,
+    data_YearOption = options.ContainsKey("YearOption")
+        ? options["YearOption"]
+        : addtionalValues.ContainsKey("YearOption")
+            ? addtionalValues["YearOption"]
+            : string.Empty,
+    data_MonthOption = options.ContainsKey("MonthOption")
+        ? options["MonthOption"]
+        : addtionalValues.ContainsKey("MonthOption")
+            ? addtionalValues["MonthOption"]
+            : string.Empty,
+    data_DayOption = options.ContainsKey("DayOption")
+        ? options["DayOption"]
+        : addtionalValues.ContainsKey("DayOption")
+            ? addtionalValues["DayOption"]
+            : string.Empty
+})

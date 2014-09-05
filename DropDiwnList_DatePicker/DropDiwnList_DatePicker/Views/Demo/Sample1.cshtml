@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "Sample";
+}
+
+<h2>DropDownList DatePicker - Sample1</h2>
+    
+<br/>
+
+<div class="row">
+    <div class="col-sm-1">
+        選擇日期1
+    </div>
+    <div class="col-sm-11">
+        <input type="text" id="SelectDate1" value="" class="DateDDL" />
+    </div>
+</div>
+     
+<div class="row">
+    <div class="col-sm-1">
+        選擇日期2
+    </div>
+    <div class="col-sm-11">
+        <input type="text" id="SelectDate2" value="2010-07-12" class="DateDDL" />
+    </div>
+</div>
+
+@section scripts
+{    
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(function () {
+            $('.DateDDL').dateDropDowns({
+                dateFormat: 'yy-MM-DD',
+                monthNames: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
+                yearStart: '1912', yearEnd: '2011',
+                taiwanCalendarYear: true,
+                yearOption: '年', monthOption: '月', dayOption: '日'
+            });
+        });
+    </script>
+}
